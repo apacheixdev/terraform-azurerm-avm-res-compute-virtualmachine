@@ -173,8 +173,9 @@ resource "azurerm_windows_virtual_machine" "this" {
 
   lifecycle {
     ignore_changes = [
-      winrm_listener,                   # Once the certificate got rotated, it will trigger a destroy/recreate of the VM.
-      vm_agent_platform_updates_enabled # Added property to ignore_changes as it continues to detect change in state.
+      winrm_listener,                                        # Once the certificate got rotated, it will trigger a destroy/recreate of the VM.
+      vm_agent_platform_updates_enabled,                     # Added property to ignore_changes as it continues to detect change in state.
+      bypass_platform_safety_checks_on_user_schedule_enabled # Added to prevent changes when a customer managed schedule is used for automatic updates.
     ]
 
     precondition {
